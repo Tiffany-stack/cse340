@@ -4,3 +4,121 @@
 *:after {
   box-sizing: border-box;
 }
+
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 150px; /* Should be removed. Only for demonstration */
+}
+.column3 {
+  float: left;
+  width: 40%;
+  padding: 10px;
+background: #FFFFFF;
+  
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.button {
+  background-color: #00b0d5;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+/* Style the content */
+.section {
+ background: image("https://www.drawingforall.net/wp-content/uploads/2017/06/10-how-to-draw-a-sports-car-step-by-step.jpg.webp");
+  padding: 10px;
+  height: 100%; /* Should be removed. Only for demonstration */
+	width: 100%;
+	
+}
+
+/* Style the footer */
+.footer {
+  background-color: #f1f1f1;
+  padding-left: 20px;
+	clear: both;
+}
+	.wrapper {
+		width: 1200px;
+		border: solid #27D0EC 3px;
+		border-radius: 20px;
+		margin: 0 auto;
+		background: #FFFFFF;
+		margin-top: 10px;
+		 
+	}
+.column5 {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  
+}	
+	
+.column6 {
+  float: left;
+  width: 50%;
+  padding: 10px;
+ 
+}
+body {
+ background-image: url("/images/site/checkerboard.jpg");
+ background-color: #cccccc;
+}
+
+
+/*added*/
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* Set margin to 0 for proper alignment */
+  display: flex;
+  justify-content: space-around; /* Distribute items evenly */
+}
+
+nav li {
+  flex: 1; /* Make each list item flexible to take equal space */
+  text-align: center; /* Center align the text in each item */
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  background-color: #222;
+  border-radius: 0px;
+  display: block; /* Allow padding to work correctly */
+}
+
+.icons {
+  float: left;
+  text-align: center;
+  width: 50%;
+}
+
