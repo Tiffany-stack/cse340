@@ -10,7 +10,7 @@
             "server": "localhost",
             "driver": "PostgreSQL",
             "name": "db340tcn",
-            "connectString": "postgresql://db_tcn:IyfruU2ICayAXXPjJMrcSWKCAeivlyo0@dpg-crrq0kggph6c738jsi8g-a.singapore-postgres.render.com/db340tcn"
+            "connectString": "postgresql://db_tcn:IyfruU2ICayAXXPjJMrcSWKCAeivlyo0@dpg-crrq0kggph6c738jsi8g-a/db340tcn"
         }
     ]
 }
