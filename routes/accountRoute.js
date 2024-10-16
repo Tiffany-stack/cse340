@@ -22,7 +22,7 @@ router.post(
   )
 
 // Route to handle account registration
-router.post('/register', utilities.handleErrors(accountController.registerAccount))
+///router.post('/register', utilities.handleErrors(accountController.registerAccount))
 
 // Process the login attempt
 router.post(
