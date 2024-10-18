@@ -16,6 +16,6 @@ router.get("/trigger-error", (req, res) => {
 
 router.post("/add", invController.addInventory);
 
-router.get("/",invController.buildManagementView); 
+router.get("/inv",invController.ManagementView); 
 
 module.exports = router;
