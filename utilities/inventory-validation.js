@@ -1,57 +1,55 @@
-const utilities = require("../utilities");
-const invModel = require("../models/inventory-model");
-const { body, validationResult } = require("express-validator");
-const validate = {};
+const utilities = require("../utilities")
+const invModel = require("../models/inventory-model")
+const { body, validationResult } = require("express-validator")
+const validate = {}
 
 /* **********************************
  *  Add classification Data Validation Rules
  * ********************************* */
 validate.classificationRules = () => {
   return [
-    // firstname is required and must be string
     body("classification_name")
       .trim()
       .escape()
       .notEmpty()
       .isAlphanumeric()
       .isLength({ min: 1 })
-      .withMessage("Please provide a valid classification name."), // on error this message is sent.
-  ];
-};
+      .withMessage("Please provide a valid classification name."),
+  ]
+}
 
 /* ******************************
- * Check data and return errors or continue to registration
+ * Check classification data and return errors or continue
  * ***************************** */
 validate.checkClassificationData = async (req, res, next) => {
-  const { classification_name } = req.body;
-  let errors = [];
-  errors = validationResult(req);
+  const { classification_name } = req.body
+  let errors = []
+  errors = validationResult(req)
   if (!errors.isEmpty()) {
-    let nav = await utilities.getNav();
-    res.render("inventory/addClassification", { // Try again
+    let nav = await utilities.getNav()
+    res.render("inventory/addClassification", {
       errors,
       title: "Add Classification",
       nav,
       classification_name,
-    });
-    return;
+    })
+    return
   }
-  next();
-};
+  next()
+}
 
 /* **********************************
  *  Add inventory Data Validation Rules
  * ********************************* */
 validate.inventoryRules = () => {
   return [
-    // Make is required and must be string
     body("inv_make")
       .trim()
       .escape()
       .notEmpty()
       .withMessage("Make value is missing")
       .isLength({ min: 1 })
-      .withMessage("Please provide a make."), // on error this message is sent.
+      .withMessage("Please provide a make."),
 
     body("inv_model")
       .trim()
@@ -118,16 +116,16 @@ validate.inventoryRules = () => {
       .notEmpty()
       .isLength({ min: 1 })
       .isInt()
-      .withMessage("Please provide a make."),
-  ];
-};
+      .withMessage("Please provide a valid classification."),
+  ]
+}
 
 /* ******************************
- * Check data and return errors or continue to registration
+ * Check inventory data and return errors or continue
  * ***************************** */
 validate.checkInventoryData = async (req, res, next) => {
-  let errors = [];
-  errors = validationResult(req);
+  let errors = []
+  errors = validationResult(req)
 
   if (!errors.isEmpty()) {
     const {
@@ -141,12 +139,10 @@ validate.checkInventoryData = async (req, res, next) => {
       inv_miles,
       inv_color,
       classification_id,
-    } = req.body;
-    let classifications = await utilities.buildClassificationList(
-      classification_id
-    );
-    let nav = await utilities.getNav();
-    res.render("inventory/addInventory", { // Try again
+    } = req.body
+    let classifications = await utilities.buildClassificationList(classification_id)
+    let nav = await utilities.getNav()
+    res.render("inventory/addInventory", {
       errors,
       title: "Add Inventory",
       nav,
@@ -160,60 +156,10 @@ validate.checkInventoryData = async (req, res, next) => {
       inv_price,
       inv_miles,
       inv_color,
-    });
-    return;
+    })
+    return
   }
-  next();
-};
+  next()
+}
 
-
-
-
-/* ******************************
- * Check data and return errors or continue to update. Errors will redirect to edit view
- * ***************************** */
-validate.checkUpdateData = async (req, res, next) => {
-  let errors = [];
-  errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    const {
-      inv_id,
-      inv_make,
-      inv_model,
-      inv_year,
-      inv_description,
-      inv_image,
-      inv_thumbnail,
-      inv_price,
-      inv_miles,
-      inv_color,
-      classification_id,
-    } = req.body;
-    let classifications = await utilities.buildClassificationList(
-      classification_id
-    );
-    let nav = await utilities.getNav();
-    res.render("inventory/editInventory", { // Try again
-      errors,
-      title: "Edit " + inv_make + " " + inv_model,
-      nav,
-      classifications,
-      inv_id,
-      inv_make,
-      inv_model,
-      inv_year,
-      inv_description,
-      inv_image,
-      inv_thumbnail,
-      inv_price,
-      inv_miles,
-      inv_color,
-    });
-    return;
-  }
-  next();
-};
-
-
-module.exports = validate;
+module.exports = validate

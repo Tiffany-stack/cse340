@@ -1,12 +1,12 @@
 <h1><%- title %></h1>
 <%- messages() %>
-<% if (errors) { %>
+<% if (errors && errors.length > 0) { %>  <!-- Check if errors exist and if the array has items -->
     <ul class="notice">
-   <% errors.array().forEach(error => { %>
-     <li><%= error.msg %></li>
-  <%  }) %>
-   </ul>
-  <% } %>
+        <% errors.forEach(error => { %>  <!-- Directly iterate over the errors array -->
+            <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+<% } %>
 
 <ul class="no-bullet">
     <li>

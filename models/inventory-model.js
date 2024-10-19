@@ -33,7 +33,7 @@ async function getInventoryByClassificationId(classification_id) {
         WHERE i.classification_id = $1`,
       [classification_id]
     );
- 
+
     return data.rows;
   } catch (error) {
     console.error("getclassificationsbyid error " + error);
@@ -99,7 +99,7 @@ async function addInventory(
       classification_id,
     ]);
   } catch (error) {
-    console.error("editInventory error. " + error);
+    console.error("addInventory error. " + error);
   }
 }
 
@@ -138,7 +138,7 @@ async function updateInventory(
       ])
     ).rows[0];
   } catch (error) {
-    console.error("addInventory error. " + error);
+    console.error("updateInventory error. " + error);
   }
 }
 
@@ -157,9 +157,9 @@ async function deleteInventory(inv_id) {
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
-  getInventoryByInventoryId,
+  getInventoryByInventoryId, // Updated function name
   addClassification,
   addInventory,
   updateInventory,
-  deleteInventory
+  deleteInventory,
 };
