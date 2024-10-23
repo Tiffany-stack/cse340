@@ -52,7 +52,7 @@ validate.updateRules = () => {
       .escape()
       .notEmpty()
       .isLength({ min: 1 })
-      .withMessage("Please provide a first name."), // on error this message is sent.
+      .withMessage("Please provide a first name."),
 
     // lastname is required and must be string
     body("account_lastname")
@@ -60,21 +60,23 @@ validate.updateRules = () => {
       .escape()
       .notEmpty()
       .isLength({ min: 2 })
-      .withMessage("Please provide a last name."), // on error this message is sent.
+      .withMessage("Please provide a last name."),
 
     // valid email is required and cannot already exist in the database
     body("account_email")
       .trim()
       .isEmail()
-      .normalizeEmail() // refer to validator.js docs
+      .normalizeEmail()
       .withMessage("A valid email is required.")
-      .custom(async (account_email, { req }) => { // Magic
-        console.dir(req.body);
-        const emailExists = await accountModel.checkExistingEmail(
-          account_email, req.body.old_email
-        );
-        if (emailExists) {
-          throw new Error("Email exists. Please log in or use different email");
+      .custom(async (account_email, { req }) => {
+        const old_email = req.body.old_email;
+
+        // Check if the new email is different from the old email
+        if (account_email !== old_email) {
+          const emailExists = await accountModel.checkExistingEmail(account_email);
+          if (emailExists) {
+            throw new Error("Email exists. Please log in or use a different email");
+          }
         }
       }),
   ];
@@ -153,16 +155,13 @@ validate.checkRegData = async (req, res, next) => {
     next();
 };
 
-/* ******************************
- * Check data and return errors or continue to update
- * ***************************** */
 validate.checkUpdateData = async (req, res, next) => {
   const { account_id, account_firstname, account_lastname, account_email } = req.body;
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
       let nav = await utilities.getNav();
-      res.render("account/update/", {
+      res.render("account/update", {
           errors,
           title: "Update",
           nav,
