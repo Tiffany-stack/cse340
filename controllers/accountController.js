@@ -2,6 +2,7 @@
 const utilities = require('../utilities/index');
 const accountModel = require("../models/account-model");
 
+const messageModel = require("../models/message-model");
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
@@ -151,13 +152,13 @@ async function accountLogin(req, res) {
 
 async function buildAccountManagementView(req, res) {
   let nav = await utilities.getNav();
-  //const unread = await messageModel.getMessageCountById(res.locals.accountData.account_id);
+const unread = await messageModel.getMessageCountById(res.locals.accountData.account_id);
 
   res.render("account/account-management", {
     title: "Account Management",
     nav,
     errors: null,
-    //unread, 
+    unread, 
   });
   return; 
 }
@@ -214,6 +215,9 @@ async function updateAccount(req, res) {
     account_email,
   );
 
+  // Fetch unread message count
+  const unread = await messageModel.getMessageCountById(account_id);
+
   if (regResult) {
     req.flash(
       "notice",
@@ -232,6 +236,7 @@ async function updateAccount(req, res) {
       title: "Management",
       errors: null,
       nav,
+      unread,
     });
   } else {
     req.flash("notice", "Sorry, the update failed.");
@@ -243,6 +248,7 @@ async function updateAccount(req, res) {
       account_lastname,
       account_email,
       nav,
+      unread,
     });
   }
 }

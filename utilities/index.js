@@ -189,4 +189,42 @@ Util.checkAuthorizationManager = (req, res, next) => {
   }
 };
 
+Util.buildInbox = (messages) => {
+  inboxList = `
+  <table>
+    <thead>
+      <tr>
+        <th>Received</th><th>Subject</th><th>From</th><th>Read</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  messages.forEach((message) => {
+    inboxList += `
+    <tr>
+      <td>${message.message_created.toLocaleString()}</td>
+      <td><a href="/message/view/${message.message_id}">${message.message_subject}</a></td>
+      <td>${message.account_firstname} ${message.account_type}</td>
+      <td>${message.message_read ? "✓" : " "}</td>
+    </tr>`;
+  });
+
+  inboxList += `
+  </tbody>
+  </table> `;
+  return inboxList;
+};
+
+Util.buildRecipientList = (recipientData, preselected = null) => {
+  let list = `<select name="message_to" required>`;
+  list += '<option value="">Select a recipient</option>';
+
+  recipientData.forEach((recipient) => {
+    list += `<option ${preselected == recipient.account_id ? "selected" : ""} value="${recipient.account_id}">${recipient.account_firstname} ${recipient.account_lastname}</option>`
+  });
+  list += "</select>"
+
+  return list;
+
+};
 module.exports = Util

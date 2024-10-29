@@ -19,6 +19,7 @@ const accountRoute = require('./routes/accountRoute.js');
 const utilities = require("./utilities/");
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const messageRoute = require('./routes/messageRoute.js');
 
 
 /* ***********************
@@ -69,6 +70,8 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 app.use("/inv", inventoryRoute);
 // Account routes
 app.use("/account", accountRoute);
+// Message routes
+app.use("/message", messageRoute);
 
 // Intentional 500 Error Route (for testing)
 app.get("/error", (req, res, next) => {
